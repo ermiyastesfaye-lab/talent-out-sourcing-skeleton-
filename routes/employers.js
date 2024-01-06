@@ -11,4 +11,7 @@ router.get('/post', employerControll.post);
 //posted jobs page
 router.get('/posted', employerControll.posted);
 
+//create employer - we dont need this, i just created this for us to create dummy employer inorder to test our functionalities 
+router.get('/create', employerControll.createEmployer)
+
 module.exports = router;

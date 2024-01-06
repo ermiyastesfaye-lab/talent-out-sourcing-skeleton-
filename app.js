@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path')
+const mongoose = require('mongoose');
 const port = 5000;
 
 //ROUTES
@@ -16,9 +17,18 @@ app.use("/students", studentRouter);
 app.use("/message", messageRouter);
 app.use("/profile", profileRouter)
 
-// View engine setup
-app.set("views", path.join(__dirname, "views"));
+// View engine setup - for displaying the dynamic front end content
+app.set("views", path.join(__dirname, "view"));
 app.set("view engine", "pug");
+
+// Set up mongoose connection
+mongoose.set("strictQuery", false);
+
+const mongoDB = "mongodb://localhost:27017/jobportal";
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
 
 
 //START THE SERVER  

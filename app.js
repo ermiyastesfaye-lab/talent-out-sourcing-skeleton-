@@ -4,12 +4,17 @@ const path = require('path')
 const mongoose = require('mongoose');
 const port = 5000;
 
+
+app.use(express.urlencoded({ extended: true }));
+
+
 //ROUTES
 const indexRouter = require('./routes/index')
 const employerRouter = require('./routes/employers')
 const studentRouter = require('./routes/students')
 const messageRouter = require('./routes/message')
 const profileRouter = require('./routes/profile')
+
 
 app.use("/", indexRouter);
 app.use("/employers", employerRouter);

@@ -1,5 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Employer = require("../models/employerModel")
+require("../routes/employers")
+let Jobs = require("../models/jobModel")
+let candidates = require("../models/applyModel")
 
 //employer service first page
 exports.index = asyncHandler
@@ -17,9 +20,28 @@ exports.post = asyncHandler(
 //view posted page
 exports.posted = asyncHandler(
     async (req,res,next) => {
-        res.send('posted page')
+      try{
+        let jobs = await Jobs.find()
+        res.render('studentposted', { jobs });
+        console.log(jobs) 
+      }catch(e){
+        console.log(e.message)
+      }
     }
 )
+
+exports.candidate = asyncHandler(
+  async (req,res,next) => {
+    try{
+      let candidate = await candidates.find()
+      res.render('applied', { candidate });
+      console.log(candidate)
+    }catch(e){
+      console.log(e.message)
+    }
+  }
+)
+
 
 //create employer - we dont need this, i just created this for us to create dummy employer inorder to test our functionalities 
 exports.createEmployer = asyncHandler(async (req, res, next) => {

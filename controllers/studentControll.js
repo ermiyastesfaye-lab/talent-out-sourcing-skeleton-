@@ -8,7 +8,7 @@ exports.posted = asyncHandler(
       try{
         let jobs = await Jobs.find()
         res.render('studentposted', { jobs });
-        console.log(jobs) 
+        //console.log(jobs) 
       }catch(e){
         console.log(e.message)
       }

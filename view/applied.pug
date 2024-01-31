@@ -3,14 +3,66 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title  Candidates 
+    title Candidates 
   body
-    h1  List of candidates
+    h1 List of candidates
     ul
       each applied in candidate 
         li Job Name - #{applied.JobName}
         li Full Name - #{applied.FullName}
+        li email - #{applied.email}
         li Age - #{applied.Age}
         li GPA - #{applied.GPA}
         li Date - #{applied.Date}
+        button(type="button", id=`hireButton_${applied.FullName}`, class="hire-button", data-fullName=applied.FullName, data-email=applied.email, onclick=`sendEmail('/hire-candidate', '${applied.FullName}', '${applied.email}')`) Hire
+        button(type="button", id=`rejectButton_${applied.FullName}`, class="reject-button", data-fullName=applied.FullName, data-email=applied.email, onclick=`sendEmail('/reject-candidate', '${applied.FullName}', '${applied.email}')`) Reject
         hr
+
+  script.
+    function sendEmail(endpoint, fullName, email) {
+      // Make a POST request to the server-side endpoint
+      fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+        .then(response => response.text())
+        .then(message => {
+          alert(message); // Display the server's response message
+        })
+        .catch(error => console.error(error));
+    }
+
+    function hireCandidate(fullName, email){
+      alert('Congratulations! ' + fullName + ' is hired.');
+      // Call a function to send an email
+      //- sendEmail('/hire-candidate', fullName, email);
+    }
+
+    function rejectCandidate(fullName, email) {
+      alert(fullName + ' is rejected.');
+      // Call a function to send an email
+      //- sendEmail('/reject-candidate', fullName, email);
+    }
+
+    //- document.addEventListener('DOMContentLoaded', function() {
+    //-   var hireButtons = document.querySelectorAll('.hire-button');
+    //-   hireButtons.forEach(function(button) {
+    //-     var fullName = button.getAttribute('data-fullName');
+    //-     var email = button.getAttribute('data-email');
+    //-     button.addEventListener('click', function() {
+    //-       hireCandidate(fullName, email);
+    //-     });
+    //-   });
+
+    //-   var rejectButtons = document.querySelectorAll('.reject-button');
+    //-   rejectButtons.forEach(function(button) {
+    //-     var fullName = button.getAttribute('data-fullName');
+    //-     var email = button.getAttribute('data-email');
+    //-     button.addEventListener('click', function() {
+    //-       rejectCandidate(fullName, email);
+    //-     });
+    //-   });
+    //- });

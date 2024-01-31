@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const employerControll = require('../controllers/employerControll')
+const studentControll = require('../controllers/studentControll')
 const path = require('path');
 let Jobs = require("../models/jobModel")
 
@@ -40,5 +41,8 @@ router.get('/applied', employerControll.candidate)
 
 //create employer - we dont need this, i just created this for us to create dummy employer inorder to test our functionalities 
 router.get('/create', employerControll.createEmployer)
+router.get('/hired', studentControll.hired);
+router.get('/rejected', studentControll.rejected);
+
 
 module.exports = router;

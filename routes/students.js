@@ -5,6 +5,8 @@ const path = require('path');
 let applied = require("../models/applyModel") 
 
 router.get('/', studentControll.posted);
+router.get('/hired', studentControll.hired);
+router.get('/rejected', studentControll.rejected);
 
 
 router.get('/apply', (req, res) => {
@@ -18,6 +20,7 @@ router.post('/submit', async (req, res) => {
         let newApply = new applied({
             JobName: req.body.jobName,
             FullName: req.body.fullName,
+            email: req.body.email,
             Age: req.body.age,
             GPA: req.body.gpa,
             Date: req.body.date
